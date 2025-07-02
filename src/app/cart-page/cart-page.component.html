@@ -1,0 +1,53 @@
+<div class="tw-flex tw-flex-col tw-items-center">
+  @if(cart().length > 0) {
+  <h2>Vasa korpa</h2>
+  <p-dataView #dv [value]="cart()" class="">
+    <ng-template let-products pTemplate="list">
+      <div class="tw-flex tw-w- tw-flex-col tw-divide-y tw-divide-gray-200 tw-divide-solid tw-divide-x-0 ">
+
+        @for (product of products; track product) {
+        <div class="tw-flex tw-bg-red-5 tw-py-10 tw-justify-between tw-gap-10 tw-items-center">
+          <div class="tw-flex tw-gap-4">
+            <div>
+              <img class="tw-object-cover tw-w-32 tw-h-32 tw-rounded-lg" [src]="product.image" [alt]="product.name" />
+            </div>
+            <div>
+              <h4>{{product.name}} x {{product.count}}</h4>
+              <p class="tw-text-ellipsis">{{product.description}}</p>
+              <p><b>Zanr:</b> {{product.genre}}</p>
+              <p><b>Trajanje:</b> {{product.length}}</p>
+              <p><b>Reziser:</b> {{product.director}}</p>
+              <p><b>Glumci:</b> {{product.actors}}</p>
+              <p><b>Datum izlaska:</b> {{product.releaseDate}}</p>
+              <p><b>Datum i vreme projekcije:</b> {{product.showingDate}}</p>
+              <p><b>Cena karte:</b> {{product.price}} €</p>
+              <p><b>Ocena:</b> {{ getProductRating(product.id) !== null ? (getProductRating(product.id) | number :
+                '1.2-2') : 'Nema ocena' }}</p>
+            </div>
+          </div>
+          <div class="tw-flex tw-items-end tw-flex-col">
+            <h3>{{product.price | currency:'EUR':'symbol-narrow':'1.0-0'}}</h3>
+            <div class="tw-flex tw-gap-2">
+              <button pButton type="button" icon="pi pi-trash" [severity]="'danger'" [outlined]="true"
+                (click)="removeCartItem(product)"></button>
+
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </ng-template>
+  </p-dataView>
+  <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-5"></div>
+  <div class="tw-flex tw-w-full tw-justify-between">
+    <h3>Total: {{getTotalPrice() | currency:'EUR':'symbol-narrow':'1.0-0'}}</h3>
+    <button pButton icon="pi pi-shopping-bag" severity="success" (click)="goToCheckout()">
+      <p class="tw-m-0 tw-pl-2">Checkout</p>
+    </button>
+  </div>
+  }
+  @else {
+  <h2>Vasa Korpa je prazna</h2>
+
+  }
+</div>

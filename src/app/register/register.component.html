@@ -1,0 +1,88 @@
+<div class="tw-bg-white tw-p-6 tw-rounded-xl tw-shadow-lg tw-max-w-lg tw-mx-auto tw-mt-8">
+  <h2 class="tw-text-2xl tw-font-bold tw-text-center tw-mb-2">Registracija</h2>
+  <p class="tw-text-base tw-text-center tw-mb-6">Molimo Vas da popunite sve podatke kako biste napravili nalog
+  </p>
+  <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-5"></div>
+  <form [formGroup]="registerFormGroup" (ngSubmit)="register()">
+    <div class="tw-flex tw-flex-col tw-gap-4">
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="username" class="tw-text-sm">Korisničko ime</label>
+        <input pInputText id="username" class="tw-text-sm" formControlName="username" />
+        @if(registerFormGroup.get('username')?.invalid && registerFormGroup.get('username')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Korisničko ime mora biti jedinstveno i imati najmanje 3 karaktera
+        </small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="password" class="tw-text-sm">Lozinka</label>
+        <input pInputText id="password" type="password" class="tw-text-sm" formControlName="password" />
+        @if(registerFormGroup.get('password')?.invalid && registerFormGroup.get('password')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Lozinka je obavezna</small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="firstName" class="tw-text-sm">Ime</label>
+        <input pInputText id="firstName" class="tw-text-sm" formControlName="firstName" />
+        @if(registerFormGroup.get('firstName')?.invalid && registerFormGroup.get('firstName')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Unesite ispravno ime (samo slova, min 2 karaktera)</small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="lastName" class="tw-text-sm">Prezime</label>
+        <input pInputText id="lastName" class="tw-text-sm" formControlName="lastName" />
+        @if(registerFormGroup.get('lastName')?.invalid && registerFormGroup.get('lastName')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Unesite ispravno prezime (samo slova, min 2 karaktera)</small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="phoneNumber" class="tw-text-sm">Broj telefona</label>
+        <input pInputText id="phoneNumber" class="tw-text-sm" formControlName="phoneNumber" />
+        @if(registerFormGroup.get('phoneNumber')?.invalid && registerFormGroup.get('phoneNumber')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Unesite ispravan broj telefona</small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="email" class="tw-text-sm">Email</label>
+        <input pInputText id="email" class="tw-text-sm" formControlName="email" />
+        @if(registerFormGroup.get('email')?.invalid && registerFormGroup.get('email')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Unesite validan email</small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="country" class="tw-text-sm">Država</label>
+        <input pInputText id="country" class="tw-text-sm" formControlName="country" />
+        @if(registerFormGroup.get('country')?.invalid && registerFormGroup.get('country')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Unesite ispravnu državu</small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="city" class="tw-text-sm">Grad</label>
+        <input pInputText id="city" class="tw-text-sm" formControlName="city" />
+        @if(registerFormGroup.get('city')?.invalid && registerFormGroup.get('city')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Unesite ispravan grad</small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="address" class="tw-text-sm">Adresa</label>
+        <input pInputText id="address" class="tw-text-sm" formControlName="address" />
+        @if(registerFormGroup.get('address')?.invalid && registerFormGroup.get('address')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Unesite ispravnu adresu</small>
+        }
+      </div>
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="zipCode" class="tw-text-sm">Poštanski broj</label>
+        <input pInputText id="zipCode" class="tw-text-sm" formControlName="zipCode" />
+        @if(registerFormGroup.get('zipCode')?.invalid && registerFormGroup.get('zipCode')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Unesite ispravan poštanski broj</small>
+        }
+      </div>
+    </div>
+    <div class="tw-flex tw-justify-center tw-mt-8">
+      <button type="submit"
+        class="tw-bg-blue-600 tw-text-white tw-px-8 tw-py-2 tw-rounded-lg tw-font-semibold hover:tw-bg-blue-700 tw-transition-all tw-duration-200"
+        [disabled]="!registerFormGroup.valid">
+        Registruj se
+      </button>
+    </div>
+  </form>
+</div>

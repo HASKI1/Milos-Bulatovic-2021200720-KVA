@@ -1,0 +1,41 @@
+<p-menubar [model]="items">
+  <ng-template pTemplate="item" let-item>
+    <ng-container *ngIf="item.route; else urlRef">
+      <a [routerLink]="item.route" class="p-menuitem-link">
+        @if(cartSize && cartSize > 0 && item.label === 'Korpa'){
+        <i [class]="item.icon" class="tw-text-2xl" pBadge [value]="getCartCount()"></i>
+
+        }
+        @else
+        {
+        <span class="tw-text-2xl" [class]="item.icon"></span>
+        }
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    </ng-container>
+    <ng-template #urlRef>
+      <a *ngIf="item.url; else dropdown" [href]="item.url" class="p-menuitem-link">
+        <span class="tw-text-2xl" [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    </ng-template>
+    <ng-template #dropdown>
+      <div *ngIf="item.items else noLink" class="p-menuitem-link">
+        <span class="ml-2">{{ item.label }}</span>
+        <span class="pi pi-fw pi-angle-down ml-2"></span>
+      </div>
+    </ng-template>
+    <ng-template #noLink>
+      <div class="p-menuitem-link">
+        <span class="tw-text-2xl" [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+      </div>
+    </ng-template>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    @if(authenticatedUser()){
+    <p class="tw-text-md">Zdravo, {{authenticatedUser()?.password}}</p>
+    }
+  </ng-template>
+</p-menubar>

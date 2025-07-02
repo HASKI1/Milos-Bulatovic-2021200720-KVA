@@ -1,0 +1,133 @@
+<div class="tw-flex tw-min-w-full tw-flex-col tw-items-center">
+  <h3>Zdravo, {{user()?.password}}</h3>
+  <div class="flex" class=" tw-bg-gray-100 tw-w-full tw-rounded-xl tw-p-20 tw-pt-0">
+    <div class="flex tw-w-full tw-justify-between tw-p-10">
+      <h4>Vas profil</h4>
+      <div class="tw-w-full tw-h-0.5 tw-bg-gray-200 tw-my-5"></div>
+      <form [formGroup]="userForm" (ngSubmit)="confirmProfileUpdate($event)">
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="username" class="tw-text-sm">Korisnicko ime*</label>
+          <input [value]="userForm.get('username')!.value" pInputText id="username" aria-describedby="username-help"
+            class="tw-text-sm" formControlName="username" />
+          @if(userForm.get('username')?.invalid && userForm.get('username')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Korisnicko ime mora biti jedinstveno i imati najmanje 3
+            karaktera</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="username-help">
+            Korisnicko ime mora biti jedinstveno i imati najmanje 3 karaktera
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="password" class="tw-text-sm">Lozinka*</label>
+          <input [value]="userForm.get('password')!.value" pInputText id="password" aria-describedby="password-help"
+            class="tw-text-sm" formControlName="password" />
+          @if(userForm.get('password')?.invalid && userForm.get('password')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Unesite lozinku</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="username-help">
+            Unesite lozinku
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="phoneNumber" class="tw-text-sm">Broj telefona</label>
+          <input [value]="userForm.get('phoneNumber')!.value" pInputText id="phoneNumber"
+            aria-describedby="phoneNumber-help" class="tw-text-sm" formControlName="phoneNumber" />
+          @if(userForm.get('phoneNumber')?.invalid && userForm.get('phoneNumber')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Unesite ispravan broj telefona</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="phoneNumber-help">
+            Unesite ispravan broj telefona
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="email" class="tw-text-sm">Email</label>
+          <input [value]="userForm.get('email')!.value" pInputText id="email" aria-describedby="email-help"
+            class="tw-text-sm" formControlName="email" />
+          @if(userForm.get('email')?.invalid && userForm.get('email')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Unesite validnu email adresu</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="email-help">
+            Unesite validnu email adresu
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="country" class="tw-text-sm">Drzava</label>
+          <input [value]="userForm.get('country')!.value" pInputText id="country" aria-describedby="country-help"
+            class="tw-text-sm" formControlName="country" />
+          @if(userForm.get('country')?.invalid && userForm.get('country')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Drzava mora biti jedinstvena i imati najmanje 3 karaktera</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="country-help">
+            Drzava mora biti jedinstvena i imati najmanje 3 karaktera
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="city" class="tw-text-sm">Grad</label>
+          <input [value]="userForm.get('city')!.value" pInputText id="city" aria-describedby="city-help"
+            class="tw-text-sm" formControlName="city" />
+          @if(userForm.get('city')?.invalid && userForm.get('city')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Grad ne moze sadrzati brojeve</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="city-help">
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="address" class="tw-text-sm">Adresa</label>
+          <input [value]="userForm.get('address')!.value" pInputText id="address" aria-describedby="address-help"
+            class="tw-text-sm" formControlName="address" />
+          @if(userForm.get('address')?.invalid && userForm.get('address')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Adresa mora biti jedinstvena i imati najmanje 3 karaktera</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="address-help">
+            Adresa mora biti jedinstvena i imati najmanje 3 karaktera
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="firstName" class="tw-text-sm">Ime</label>
+          <input [value]="userForm.get('firstName')!.value" pInputText id="firstName" aria-describedby="firstName-help"
+            class="tw-text-sm" formControlName="firstName" />
+          @if(userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Unesite ispravno ime (samo slova, min 2 karaktera)</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="firstName-help">
+            Unesite ispravno ime (samo slova, min 2 karaktera)
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="lastName" class="tw-text-sm">Prezime</label>
+          <input [value]="userForm.get('lastName')!.value" pInputText id="lastName" aria-describedby="lastName-help"
+            class="tw-text-sm" formControlName="lastName" />
+          @if(userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Unesite ispravno prezime (samo slova, min 2 karaktera)</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="lastName-help">
+            Unesite ispravno prezime (samo slova, min 2 karaktera)
+          </small>
+          }
+        </div>
+        <div class="tw-flex tw-w-full tw-items-center tw-justify-center">
+          <p-toast />
+          <p-confirmDialog />
+          <p-button type="submit" label="Azurirajte profil" class="tw-m-2" [disabled]="!isFormValid()"></p-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

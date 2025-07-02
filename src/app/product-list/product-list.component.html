@@ -1,0 +1,77 @@
+<div *ngIf="showSearch" class="search-panel"
+  style="margin-bottom: 24px; padding: 16px; background: #f8f8f8; border-radius: 8px; max-width: 900px; margin-left: auto; margin-right: auto;">
+  <form style="display: flex; flex-wrap: wrap; gap: 12px;">
+    <select [(ngModel)]="search.name" name="name" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Naziv</option>
+      <option *ngFor="let name of uniqueNames" [value]="name">{{name}}</option>
+    </select>
+    <input [(ngModel)]="search.description" name="description" placeholder="Opis"
+      style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;" />
+    <select [(ngModel)]="search.genre" name="genre" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Zanr</option>
+      <option *ngFor="let genre of uniqueGenres" [value]="genre">{{genre}}</option>
+    </select>
+    <select [(ngModel)]="search.length" name="length" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Trajanje</option>
+      <option *ngFor="let length of uniqueLengths" [value]="length">{{length}}</option>
+    </select>
+    <select [(ngModel)]="search.director" name="director"
+      style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Reziser</option>
+      <option *ngFor="let director of uniqueDirectors" [value]="director">{{director}}</option>
+    </select>
+    <select [(ngModel)]="search.actors" name="actors" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Glumci</option>
+      <option *ngFor="let actor of uniqueActors" [value]="actor">{{actor}}</option>
+    </select>
+    <select [(ngModel)]="search.releaseDate" name="releaseDate"
+      style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Datum izlaska</option>
+      <option *ngFor="let date of uniqueReleaseDates" [value]="date">{{date}}</option>
+    </select>
+    <select [(ngModel)]="search.showingDate" name="showingDate"
+      style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Datum i vreme projekcije</option>
+      <option *ngFor="let date of uniqueShowingDates" [value]="date">{{date}}</option>
+    </select>
+    <select [(ngModel)]="search.price" name="price" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Cena karte</option>
+      <option *ngFor="let price of uniquePrices" [value]="price">{{price}}</option>
+    </select>
+    <select [(ngModel)]="search.rating" name="rating" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+      <option value="">Min. ocena</option>
+      <option *ngFor="let rating of uniqueRatings" [value]="rating">{{rating}}</option>
+    </select>
+  </form>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;">
+  <div *ngFor="let product of filteredProducts"
+    style="border: 1px solid #e0e0e0; border-radius: 8px; margin: 0; padding: 18px; width: 320px; background: #fff; box-shadow: 0 2px 8px #0001; display: flex; flex-direction: column; align-items: center;">
+    <h3 style="margin-bottom: 8px; font-size: 1.2rem; text-align: center;">{{product.name}}</h3>
+    <img [src]="product.image" [alt]="product.name"
+      style="width: 100%; height: 200px; object-fit: contain; margin-bottom: 10px; border-radius: 4px;" />
+    <p style="margin: 4px 0;">Opis: <b>{{product.description}}</b></p>
+    <p style="margin: 4px 0;">Zanr: <b>{{product.genre}}</b></p>
+    <p style="margin: 4px 0;">Trajanje: <b>{{product.length}}</b></p>
+    <p style="margin: 4px 0;">Reziser: <b>{{product.director}}</b></p>
+    <p style="margin: 4px 0;">Glumci: <b>{{product.actors}}</b></p>
+    <p style="margin: 4px 0;">Datum izlaska: <b>{{product.releaseDate}}</b></p>
+    <p style="margin: 4px 0;">Datum i vreme projekcije: <b>{{product.showingDate}}</b></p>
+    <p style="margin: 4px 0;">Cena karte: <b>{{product.price}} €</b></p>
+    <p style="margin: 4px 0;">Recenzije gledalaca: <b>{{product.productRating | number:'1.2-2'}}</b></p>
+    <div *ngIf="getProductReviews(product.id).length > 0" style="margin-top: 10px; width: 100%;">
+      <div style="font-weight: bold; margin-bottom: 4px;">Komentari:</div>
+      <div *ngFor="let review of getProductReviews(product.id)"
+        style="background: #f5f5f5; border-radius: 4px; padding: 6px 10px; margin-bottom: 6px;">
+        <span style="font-size: 0.95em; color: #333;">&#9733; {{review.rating}} &mdash; {{review.comment || 'Bez
+          komentara'}}</span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px; margin-top: 10px;">
+      <button (click)="product.addToCart(product.id)"
+        style="padding: 6px 12px; border-radius: 4px; border: 1px solid #1976d2; background: #1976d2; color: #fff; cursor: pointer;">Dodaj
+        u korpu
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<div class="card flex justify-content-center tw-basis-52">
+  <p-stepper [linear]="true">
+    <p-stepperPanel header="Podaci o porudzbini">
+      <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+        <div class="tw-flex tw-flex-column tw-h-12rem">
+          <div
+            class="tw-border-2 tw-w-full tw-min-h-80 tw-border-dashed tw-px-4 tw-my-2 tw-rounded-md tw-border-gray-200">
+            @for (product of cart(); track product) {
+            <p-dataView #dv [value]="cart()" class="tw-divide-gray-200">
+              <ng-template let-products pTemplate="list">
+                <div class="tw-flex tw-w- tw-flex-col tw-divide-y tw-divide-solid tw-divide-x-0 ">
+                  <div class="tw-flex tw-bg-red-5 tw-py-10 tw-justify-between tw-gap-10 tw-items-center">
+                    <div class="tw-flex tw-gap-4">
+                      <div>
+                        <img class="tw-object-cover tw-w-32 tw-h-32 tw-rounded-lg" [src]="product.image"
+                          [alt]="product.name" />
+                      </div>
+                      <div>
+                        <h4>{{product.name}} x {{product.count}}</h4>
+                        <p class="tw-text-ellipsis">{{product.description}}</p>
+                        <p><b>Zanr:</b> {{product.genre}}</p>
+                        <p><b>Trajanje:</b> {{product.length}}</p>
+                        <p><b>Reziser:</b> {{product.director}}</p>
+                        <p><b>Glumci:</b> {{product.actors}}</p>
+                        <p><b>Datum izlaska:</b> {{product.releaseDate}}</p>
+                        <p><b>Datum i vreme projekcije:</b> {{product.showingDate}}</p>
+                        <p><b>Cena karte:</b> {{product.price}} €</p>
+                        <p><b>Ocena:</b> {{ getProductRating(product.id) !== null ? (getProductRating(product.id) |
+                          number:'1.2-2') : 'Nema ocena' }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-dataView>
+            }
+            <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-6"></div>
+            <h3 class="tw-m-0 tw-mb-6">Ukupno: {{getTotalPrice() | currency:'EUR':'symbol-narrow':'1.0-0'}} </h3>
+          </div>
+        </div>
+        <div class="tw-flex tw-pt-4 tw-justify-end">
+          <p-button label="Dalje" [severity]="'info'" icon="pi pi-arrow-right" iconPos="right"
+            (onClick)="nextCallback.emit()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+
+    <p-stepperPanel header="Kako vam se dopao film?">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+        <div class="tw-flex tw-flex-column tw-h-12rem">
+          <div
+            class="tw-border-2 tw-w-full tw-min-h-80 tw-border-dashed tw-px-4 tw-my-2 tw-rounded-md tw-border-gray-200">
+            <h3>Podelite utiske o filmu sa nama!</h3>
+            <p-toast />
+            @for (product of cart(); track product) {
+            <p-dataView #dv [value]="cart()" class="tw-divide-gray-200">
+              <ng-template let-products pTemplate="list">
+                <div class="tw-flex tw-w- tw-flex-col tw-divide-y tw-divide-solid tw-divide-x-0 ">
+                  <div class="tw-flex tw-bg-red-5 tw-py-10 tw-justify-between tw-gap-10 tw-items-center">
+                    <div class="tw-flex tw-gap-4">
+                      <div>
+                        <img class="tw-object-cover tw-w-32 tw-h-32 tw-rounded-lg" [src]="product.image"
+                          [alt]="product.name" />
+                      </div>
+                      <div>
+                        <h4>{{product.name}} x {{product.count}}</h4>
+                        <p class="tw-text-ellipsis">{{product.description}}</p>
+                        <p><b>Zanr:</b> {{product.genre}}</p>
+                        <p><b>Trajanje:</b> {{product.length}}</p>
+                        <p><b>Reziser:</b> {{product.director}}</p>
+                        <p><b>Glumci:</b> {{product.actors}}</p>
+                        <p><b>Datum izlaska:</b> {{product.releaseDate}}</p>
+                        <p><b>Datum i vreme projekcije:</b> {{product.showingDate}}</p>
+                        <p><b>Cena karte:</b> {{product.price}} €</p>
+                        <p><b>Ocena:</b> {{ getProductRating(product.id) !== null ? (getProductRating(product.id) |
+                          number:'1.2-2') : 'Nema ocena' }}</p>
+                        <p-dropdown [options]="statusOptions" [(ngModel)]="productStatus[product.id]"
+                          placeholder="Status projekcije" [style]="{width: '200px', marginTop: '8px'}">
+                        </p-dropdown>
+                        <button type="button"
+                          class="tw-ml-4 tw-bg-red-500 tw-text-white tw-px-3 tw-py-1 tw-rounded hover:tw-bg-red-700"
+                          (click)="removeFromCart(product.id)">
+                          Ukloni iz korpe
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <form class="tw-border-none" style="border: none;" (submit)="addRating(product.id)">
+                    <div class="tw-flex tw-gap-4 tw-w-full tw-items-center tw-justify-center tw-mt-5">
+                      <p-dropdown [options]="ratingOptions" [(ngModel)]="productRating[product.id]"
+                        name="rating-{{product.id}}" [placeholder]="'Ocenite film'" [showClear]="false"
+                        [style]="{width: '200px'}" [panelStyle]="{ 'max-height': '300px' }">
+                      </p-dropdown>
+                      <input type="text" [(ngModel)]="productComment[product.id]" name="comment-{{product.id}}"
+                        placeholder="Vaša recenzija"
+                        style="width: 300px; padding: 6px; border-radius: 4px; border: 1px solid #ccc;" />
+                      <p-button label="Posalji" [disabled]="!productRating[product.id]" type="submit"
+                        [severity]="'success'" />
+                    </div>
+                  </form>
+                </div>
+                <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-6"></div>
+              </ng-template>
+            </p-dataView>
+            }
+
+          </div>
+        </div>
+        <div class="tw-flex tw-pt-4 tw-justify-center">
+          <p-button label="Zavrsi" (onClick)="goToHome()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+  </p-stepper>
+</div>
